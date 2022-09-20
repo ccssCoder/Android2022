@@ -1,0 +1,227 @@
+
+
+fun main() 
+{
+// 1. Write a main function that adds two values (immutable variables) and prints the result using a
+// String template in the following format: 2 + 3 = 5.
+// A template expression starts with a dollar sign ($) and can be a simple value ($ value)
+// or an expression inside curly braces (${expression}).
+
+	val a = 2
+	val b = 3
+    
+	println("${a+b}")
+	
+	
+// 2. Write a main function that declares an immutable list (listOf) daysOfWeek containing the
+// days of the week.
+
+	var daysOfWeek = listOf("Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Sunday", "Saturday")
+    
+	// ● Use a for loop that iterates over the list and prints the list to the standard output.
+    for(day in daysOfWeek)
+        println(day)
+    
+	// ● Use a list filter to print the days starting with letter ‘T’
+    daysOfWeek
+    	.filter{ it.startsWith("T") }
+        .forEach{ println(it) }
+    
+	// ● Use a list filter to print the days containing the letter ‘e’
+	daysOfWeek
+    	.filter{ it.contains("e") }
+        .forEach{ println(it) }
+   	
+	// ● Use a list filter to print all the days of length 6 (e.g. Friday)
+	daysOfWeek
+        .filter{ it.length == 6}
+        .forEach{ println(it) }
+}
+
+
+// 3. Write a function that checks whether a number is prime or not. Write a main function that
+// prints prime numbers within a range.
+
+fun prime(numberToCheck: Int): Boolean{
+    var flag = true
+    for (i in 2..numberToCheck / 2)
+    {
+        if (numberToCheck % i == 0)
+        {
+            flag = false
+            break
+        }
+    }
+    return flag
+}
+
+fun main()
+{
+    var lower: Int = 0
+    var Upper: Int = 100
+
+    for (i in lower..Upper){
+        if( prime(i) ){
+            println(i)
+        }
+    }
+}
+
+
+// 4. Write an encode and a corresponding decode function that encodes and respectively
+// decodes the characters of a string. You may use any encoding strategy.
+// ● Test your functions!
+// ● Write a higher-order function (take a function as parameter) that encodes or decodes a
+// message. Call this function twice. Once for encoding and once for decoding a message.
+// fun messageCoding(msg: String, func: (String) -> String): String
+
+fun encode(msg: String): String {
+    return String(
+            msg
+            .map { it.inc() }
+            .toCharArray()
+        )
+}
+
+fun decode(msg: String): String {
+    return String(
+            msg
+            .map { it.dec() }
+            .toCharArray()
+        )
+}
+
+fun messageCoding(msg: String, func: (String) -> String): String{
+    return func(msg)
+}
+
+fun main() {
+    val myMessage = "abcxyz"
+    val myEncodedMessage = messageCoding(myMessage, ::encode)
+    println(myEncodedMessage)
+
+    val myDecodedMessage = messageCoding(myEncodedMessage, ::decode)
+    println(myDecodedMessage)
+}
+
+
+// 5. Write a compact function that prints the even numbers from a list. Use a list filter!
+// Compact function = single-expression function
+// Ex. fun double(x: Int):Int = x * 2
+
+fun evenNumber(x: Int) : Boolean = (x%2 == 0)
+
+fun main() {
+    val numbers : List<Int> = listOf(1, 2, 3, 4, 5, 6)
+
+    println( numbers.filter { evenNumber(it) } )
+}
+
+
+// 6. The map() performs the same transformation on every list item and returns the result list.
+// Using map, perform the following operations:
+
+fun main() {
+    //Double the elements of a list of integers and print it.
+    val numbers : List<Int> = listOf(1, 2, 3, 4, 5, 6)
+    println( numbers.map { it*2 })
+
+    //Print the days of week capitalized (e.g. MONDAY for Monday)
+    val daysOfWeek = listOf<String>("monday","tuesday", "wednesday", "thursday", "friday", "saturday", "sunday");
+    println( daysOfWeek.map { it.uppercase() })
+
+    //Print the first character of each day capitalized (e.g. m for Monday)
+    println(daysOfWeek.map { it.get(0).uppercaseChar() + it.substring(1) })
+
+    //Print the length of days (number of characters, e.g. Monday → 6)
+    println(daysOfWeek.map { it.length })
+
+    //Compute the average length of days (in number of characters)
+    println(
+        daysOfWeek
+            .map { it.length}
+            .average()
+	)
+}
+
+
+// 7. Mutable lists.
+
+fun main() {
+//    Convert the daysOfWeek immutable list into a mutable one. Remove all days containing
+//    the letter ‘n’, then print the mutable list. You should get this result: [Tuesday, Thursday, Friday, Saturday]
+
+    val daysOfWeek = listOf<String>("Monday","Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday");
+
+    var mutableL = daysOfWeek.filter { !it.contains('n') }.toMutableList()
+    println( mutableL )
+
+//    Print each element of the list in a new line together with the index of the element (convert
+//            the list to list with index using the withIndex() function!). You should get the following
+//    result:
+//    Item at 0 is Tuesday
+//    Item at 1 is Thursday
+//    Item at 2 is Friday
+//    Item at 3 is Saturday
+
+    mutableL.forEachIndexed { index, item -> println("Item at ${index} is ${item}") }
+
+//    Sort the result list alphabetically! You should get the following result:
+//    [Friday, Saturday, Thursday, Tuesday]
+
+    println(mutableL.sorted())
+}
+
+
+// 8. Arrays.
+
+import kotlin.random.Random
+
+fun anyEvenNumber(arr: List<Int>) : Boolean{
+    for (e in arr){
+        if(e%2 == 0){
+            return true;
+        }
+    }
+    return false;
+}
+
+fun allEvenNumber(arr: List<Int>) : Boolean{
+    for (e in arr){
+        if(e%2 != 0){
+            return false;
+        }
+    }
+    return true;
+}
+
+fun main() {
+//    ● Generate an array of 10 random integers between 0 and 100, and use forEach to print
+//    each element of the array in a new line.
+    val randomValues = (1..10).map { Random.nextInt(0,100) }
+    //val testingValues = listOf<Int>(0,1,4,8)
+
+    randomValues
+        .forEach { print("$it ") }
+
+    println()
+//    ● Print the array sorted in ascending order!
+    randomValues
+        .sorted()
+        .forEach { print("$it ")}
+
+    println()
+//    ● Check whether the array contains any even number!
+    println("Array contains any even number: ${anyEvenNumber(randomValues)}")
+
+//    ● Check whether all the numbers are even!
+    println("All the numbers are even: ${allEvenNumber(randomValues)}")
+
+//    ● Calculate the average of generated numbers and print it using forEach!
+    var sum : Float = 0F;
+    randomValues.forEach{
+            sum += it
+        }
+
+    println("Average of generated numbers: ${sum/randomValues.size}")
+}

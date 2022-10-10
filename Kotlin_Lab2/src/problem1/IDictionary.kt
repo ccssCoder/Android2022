@@ -10,6 +10,6 @@ interface IDictionary{
     // ● The dictionary’s name is a constant and should be defined using a companion object in
     // the interface.
     companion object{
-        const val name : String = "Angol Szotar"
+        const val DICTIONARY_PATH : String = "resources/words.txt"
     }
 }

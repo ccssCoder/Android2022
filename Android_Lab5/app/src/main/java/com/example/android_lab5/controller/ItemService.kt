@@ -20,4 +20,8 @@ class ItemService(private val itemRepository: ItemRepository) {
 
         return randomizedItems
     }
+
+    fun selectRandomItems(): List<Item> {
+        return itemRepository.getAllQuestions()
+    }
 }

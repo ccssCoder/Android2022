@@ -33,7 +33,7 @@ class QuizEndFragment : Fragment() {
     @SuppressLint("SetTextI18n")
     private fun init(view: View) {
         scoreTxtV = view.findViewById(R.id.quizResult)
-        scoreTxtV.text = userViewModel.correctAnswers.toString() + "/" + userViewModel.numberOfQuestions.toString()
+        scoreTxtV.text = userViewModel.name.value + ":" + userViewModel.correctAnswers.toString() + "/" + userViewModel.numberOfQuestions.toString()
 
         restartBtn = view.findViewById(R.id.tryAgain)
         restartBtn.setOnClickListener{

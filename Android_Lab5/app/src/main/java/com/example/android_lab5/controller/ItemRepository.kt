@@ -26,6 +26,10 @@ class ItemRepository() {
         return items.size
     }
 
+    fun getAllQuestions(): MutableList<Item> {
+        return items
+    }
+
     private fun createDummyList() {
         save(Item(
                 "Which collection search with most efficency?",
@@ -71,6 +75,26 @@ class ItemRepository() {
         save(Item("What's the keyword for defining a function in kotlin?",
             listOf("void", "function", "fun", "method"),
             2
+            )
+        )
+        save(Item("What's the purpose of RecyclerView?",
+            listOf("It s a simple ScrollList", "o.O", "It helps to show lot of items on a list", "Say what?"),
+            2
+            )
+        )
+        save(Item("Where can I not get context?",
+            listOf("Fragment", "ContentProvider", "Activity", "View"),
+            1
+            )
+        )
+        save(Item("What s the purpose of the ViewModel?",
+            listOf("To hold and share data between Fragments", "To help dependencies", "Helps solving logging", "It s a design pattern"),
+            0
+            )
+        )
+        save(Item("what s necessary prefix to call a function from a coroutine?",
+            listOf("static", "final", "abstract", "suspend"),
+            3
             )
         )
     }

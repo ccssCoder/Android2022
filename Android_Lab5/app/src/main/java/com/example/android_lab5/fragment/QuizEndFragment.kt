@@ -36,6 +36,8 @@ class QuizEndFragment : Fragment() {
         scoreTxtV.text = userViewModel.name.value + ":" + userViewModel.correctAnswers.toString() + "/" + userViewModel.numberOfQuestions.toString()
 
         restartBtn = view.findViewById(R.id.tryAgain)
+
+        userViewModel.setHighScore()
         restartBtn.setOnClickListener{
             userViewModel.flushValues()
             this.findNavController().navigate(R.id.action_quizEndFragment_to_quizStartFragment)

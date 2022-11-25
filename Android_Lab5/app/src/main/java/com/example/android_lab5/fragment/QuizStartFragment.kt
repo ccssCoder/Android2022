@@ -37,6 +37,7 @@ class QuizStartFragment : Fragment() {
         nameEditTxt = view.findViewById(R.id.sendName)
 
         userViewModel.name.observe(this.viewLifecycleOwner, Observer {
+            nameEditTxt.setText(it)
             Log.d("XXX", "LiveData changed to : $it")
         })
 

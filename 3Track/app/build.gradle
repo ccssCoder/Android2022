@@ -40,6 +40,8 @@ ext {
     viewmodel_version = "2.4.0"
     retrofit_version = "2.9.0"
     converter_gson_version = "2.8.1"
+    recyclerview_version = '1.2.1'
+    cardview_version = '1.0.0'
 }
 
 dependencies {
@@ -62,4 +64,8 @@ dependencies {
     // Retrofit
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$converter_gson_version"
+
+    // RecyclerView + CardView
+    implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
+    implementation "androidx.cardview:cardview:$cardview_version"
 }

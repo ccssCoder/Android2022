@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.a3track.App
 import com.example.a3track.R
 import com.example.a3track.api.ThreeTrackerRepository
@@ -59,7 +60,7 @@ class LoginFragment : Fragment() {
             loginViewModel.isSuccessful.observe(this.viewLifecycleOwner) {
                 Log.d("TAG", "Logged in successfully = $it")
                 if (it) {
-//                    findNavController().navigate(R.id.action_loginFragment_to_listFragment)
+                    findNavController().navigate(R.id.action_loginFragment_to_tasksFragment)
                 }
             }
         }

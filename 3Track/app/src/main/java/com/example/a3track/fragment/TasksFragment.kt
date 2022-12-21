@@ -6,7 +6,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -15,6 +17,7 @@ import com.example.a3track.adapter.TaskListAdapter
 import com.example.a3track.adapter.TaskListAdapter.OnItemClickListener
 import com.example.a3track.api.ThreeTrackerRepository
 import com.example.a3track.api.model.TaskResponse
+import com.example.a3track.viewmodel.SharedViewModel
 import com.example.a3track.viewmodel.TasksViewModel
 import com.example.a3track.viewmodel.TasksViewModelFactory
 
@@ -24,6 +27,7 @@ class TasksFragment : Fragment(), OnItemClickListener {
         private val TAG: String = "XXX"
     }
 
+    private val sharedViewModel: SharedViewModel by activityViewModels()
     private lateinit var tasksViewModel: TasksViewModel
     private lateinit var recyclerView: RecyclerView
     private lateinit var adapter: TaskListAdapter
@@ -65,6 +69,8 @@ class TasksFragment : Fragment(), OnItemClickListener {
     }
 
     override fun onItemClick(position: Int) {
-        Log.d(TAG, "~~$position~~")
+        val chosenTask = tasksViewModel.tasks.value?.get(position)
+        sharedViewModel.setTask(chosenTask)
+        findNavController().navigate(R.id.action_tasksFragment_to_taskDetailFragment)
     }
 }

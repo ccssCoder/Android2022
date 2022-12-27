@@ -42,6 +42,7 @@ ext {
     converter_gson_version = "2.8.1"
     recyclerview_version = '1.2.1'
     cardview_version = '1.0.0'
+    splash_version = '1.0.0'
 }
 
 dependencies {
@@ -68,4 +69,7 @@ dependencies {
     // RecyclerView + CardView
     implementation "androidx.recyclerview:recyclerview:$recyclerview_version"
     implementation "androidx.cardview:cardview:$cardview_version"
+
+    // Splash screen dependency
+    implementation "androidx.core:core-splashscreen:$splash_version"
 }

@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
 import com.example.a3track.App
@@ -25,6 +26,18 @@ class LoginFragment : Fragment() {
         super.onCreate(savedInstanceState)
         val factory = LoginViewModelFactory(ThreeTrackerRepository())
         loginViewModel = ViewModelProvider(this, factory)[LoginViewModel::class.java]
+        activity?.installSplashScreen()?.apply {
+            setKeepOnScreenCondition {
+                loginViewModel.isLoading.value
+            }
+        }
+        loginViewModel.testToken()
+        loginViewModel.skipLogin.observe(this) {
+            if (it) {
+                Log.d("TAG", "Already Logged in -> Skip login page!!!")
+                findNavController().navigate(R.id.action_loginFragment_to_tasksFragment)
+            }
+        }
     }
 
     override fun onCreateView(

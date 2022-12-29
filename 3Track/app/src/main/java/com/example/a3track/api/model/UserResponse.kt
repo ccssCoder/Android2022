@@ -11,6 +11,14 @@ data class UserResponse(
     var firstName: String,
     @SerializedName("email")
     var email: String,
+    @SerializedName("type")
+    var type: String,
+    @SerializedName("location")
+    var location: String,
     @SerializedName("phone_number")
-    var phoneNumber: String
+    var phoneNumber: String,
+    @SerializedName("department_id")
+    var departmentId: String,
+    @SerializedName("image")
+    var profilePictureURL: String?,
 )

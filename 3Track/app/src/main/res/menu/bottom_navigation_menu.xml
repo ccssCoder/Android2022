@@ -2,12 +2,15 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
+        android:icon="@drawable/ic_baseline_task_alt_24"
         android:id="@+id/tasksFragment"
         android:title="My Tasks"/>
     <item
+        android:icon="@drawable/ic_baseline_group_24"
         android:id="@+id/groupsFragment"
         android:title="My Groups"/>
     <item
+        android:icon="@drawable/ic_baseline_settings_24"
         android:id="@+id/settingsFragment"
         android:title="Settings"/>
 

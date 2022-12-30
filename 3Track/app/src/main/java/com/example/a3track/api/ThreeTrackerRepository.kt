@@ -1,9 +1,6 @@
 package com.example.a3track.api
 
-import com.example.a3track.api.model.LoginRequestBody
-import com.example.a3track.api.model.LoginResponse
-import com.example.a3track.api.model.TaskResponse
-import com.example.a3track.api.model.UserResponse
+import com.example.a3track.api.model.*
 import retrofit2.Response
 
 class ThreeTrackerRepository {
@@ -17,5 +14,9 @@ class ThreeTrackerRepository {
 
     suspend fun getUser(token: String): Response<UserResponse> {
         return RetrofitInstance.USER_API_SERVICE.getUser(token)
+    }
+
+    suspend fun createTask(token: String, createTaskRequest: CreateTaskRequest): Response<String> {
+        return RetrofitInstance.USER_API_SERVICE.createTask(token, createTaskRequest)
     }
 }

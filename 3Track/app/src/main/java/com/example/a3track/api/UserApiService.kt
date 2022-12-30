@@ -1,9 +1,6 @@
 package com.example.a3track.api
 
-import com.example.a3track.api.model.LoginRequestBody
-import com.example.a3track.api.model.LoginResponse
-import com.example.a3track.api.model.TaskResponse
-import com.example.a3track.api.model.UserResponse
+import com.example.a3track.api.model.*
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -20,4 +17,7 @@ interface UserApiService {
 
     @GET(BackendConstants.GET_USER_URL)
     suspend fun getUser(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<UserResponse>
+
+    @POST(BackendConstants.CREATE_TASK_URL)
+    suspend fun createTask(@Header(BackendConstants.HEADER_TOKEN) token: String, @Body loginRequest: CreateTaskRequest): Response<String>
 }

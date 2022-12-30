@@ -21,7 +21,10 @@ class TaskListAdapter(
     // 1. user defined ViewHolder type
     inner class DataViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView),
         View.OnClickListener {
-        val taskTitleTextView: TextView = itemView.findViewById(R.id.taskTitle)
+        var taskNameTxtView: TextView = itemView.findViewById(R.id.taskNameTxtView)
+        var assignedDateTxtView: TextView = itemView.findViewById(R.id.assignedDateTxtView)
+        var priorityTxtView: TextView = itemView.findViewById(R.id.priorityTxtView)
+        var deadlineTxtView: TextView = itemView.findViewById(R.id.deadlineTxtView)
         // Constructor
         init{
             itemView.setOnClickListener(this)
@@ -43,7 +46,10 @@ class TaskListAdapter(
     // 3. Called many times, when we scroll the list
     override fun onBindViewHolder(holder: DataViewHolder, position: Int) {
         val currentItem = list[position]
-        holder.taskTitleTextView.text = currentItem.title
+        holder.taskNameTxtView.text = currentItem.title
+        holder.assignedDateTxtView.text = holder.assignedDateTxtView.text.toString() + currentItem.createdTime.toString()
+        holder.priorityTxtView.text = holder.priorityTxtView.text.toString() + currentItem.priority.toString()
+        holder.deadlineTxtView.text = holder.deadlineTxtView.text.toString() + currentItem.deadline.toString()
     }
     // 4.
     override fun getItemCount() = list.size

@@ -18,6 +18,12 @@ interface UserApiService {
     @GET(BackendConstants.GET_USER_URL)
     suspend fun getUser(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<UserResponse>
 
+    @GET(BackendConstants.GET_USERS_URL)
+    suspend fun getUsers(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<List<UserResponse>>
+
     @POST(BackendConstants.CREATE_TASK_URL)
     suspend fun createTask(@Header(BackendConstants.HEADER_TOKEN) token: String, @Body loginRequest: CreateTaskRequest): Response<String>
+
+    @GET(BackendConstants.GET_DEPARTMENTS_URL)
+    suspend fun getDepartments(@Header(BackendConstants.HEADER_TOKEN) token: String): Response<List<DepartmentResponse>>
 }

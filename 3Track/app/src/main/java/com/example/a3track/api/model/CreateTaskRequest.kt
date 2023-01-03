@@ -12,9 +12,9 @@ data class CreateTaskRequest(
     @SerializedName("priority")
     var priority: Int?,
     @SerializedName("deadline")
-    var deadline: Long,
+    var deadline: Long?,
     @SerializedName("departmentId")
     var departmentID: Int,
     @SerializedName("status")
-    var status: Int,
+    var status: Int?,
 )

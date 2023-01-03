@@ -26,9 +26,10 @@
             android:layout_height="wrap_content"
             android:hint="Enter Task Name"/>
 
-        <EditText
+        <Spinner
+            android:id="@+id/employeeNameSpinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
             android:hint="Select Assignee"/>
 
         <LinearLayout
@@ -37,6 +38,7 @@
             android:orientation="horizontal">
 
             <EditText
+                android:id="@+id/priorityEditTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -51,17 +53,17 @@
         <EditText
             android:id="@+id/descriptionEditTxt"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             android:layout_marginBottom="100dp"
             android:hint="Task Description"/>
-
     </LinearLayout>
 
     <Button
         android:id="@+id/createNewTaskBtn"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="40dp"
         android:text="Create Task"
         app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
         tools:layout_editor_absoluteX="50dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

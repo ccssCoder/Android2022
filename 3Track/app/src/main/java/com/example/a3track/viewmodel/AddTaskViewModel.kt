@@ -22,25 +22,25 @@ class AddTaskViewModel(val repository: ThreeTrackerRepository): ViewModel() {
         getMembers()
     }
 
-    fun createTask(){
+    fun createTask(newTaskRequest: CreateTaskRequest){
         viewModelScope.launch {
-            val newRequest: CreateTaskRequest =
-            CreateTaskRequest(
-                "Write user stories for XY project",
-                "Ask the employees to set up proper user stories",
-                64,
-                1,
-                1625942327,
-                2,
-                1
-            )
+//            val newRequest: CreateTaskRequest =
+//            CreateTaskRequest(
+//                "Write user stories for XY project",
+//                "Ask the employees to set up proper user stories",
+//                64,
+//                1,
+//                1625942327,
+//                2,
+//                1
+//            )
             try {
                 val token: String? = App.sharedPreferences.getStringValue(
                     SharedPreferencesManager.KEY_TOKEN,
                     "Empty token!"
                 )
                 val response = token?.let {
-                    repository.createTask(token, newRequest)
+                    repository.createTask(token, newTaskRequest)
                 }
 
                 if (response?.isSuccessful == true) {

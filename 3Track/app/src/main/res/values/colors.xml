@@ -7,4 +7,14 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+
+    <color name="heading">#1A1A1A</color>
+    <color name="divide_bar">#333333</color>
+    <color name="date">#1A1A1A</color>
+    <color name="theme">#2264F4</color>
+    <color name="background">#1A2264F4</color>
+    <color name="priority_red">#CC1838</color>
+    <color name="priority_yellow">#E3B505</color>
+    <color name="priority_green">#18CC55</color>
+    <color name="theme_grey">#B2333333</color>
 </resources>

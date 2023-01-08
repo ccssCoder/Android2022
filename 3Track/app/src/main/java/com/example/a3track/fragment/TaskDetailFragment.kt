@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.fragment.app.activityViewModels
 import com.example.a3track.R
 import com.example.a3track.api.model.TaskResponse
+import com.example.a3track.utils.toTimeDateString
 import com.example.a3track.viewmodel.SharedViewModel
 
 class TaskDetailFragment : Fragment() {
@@ -58,11 +59,11 @@ class TaskDetailFragment : Fragment() {
 
         taskNameTxtView.text = task!!.title
         assignedByTxtView.text = assignedByTxtView.text.toString() + task.createdByUserID.toString()
-        assignedDateTxtView.text = assignedDateTxtView.text.toString() + task.createdTime.toString()
+        assignedDateTxtView.text = assignedDateTxtView.text.toString() + task.createdTime.toTimeDateString()
         assigneeTxtView.text = assigneeTxtView.text.toString() + task.assignedToUserID.toString()
 
         priorityTxtView.text = priorityTxtView.text.toString() + task.priority.toString()
-        deadlineTxtView.text = deadlineTxtView.text.toString() + task.deadline.toString()
+        deadlineTxtView.text = deadlineTxtView.text.toString() + task.deadline.toTimeDateString()
         descriptionTextView.text = task.description
     }
 

@@ -57,15 +57,9 @@ class TasksFragment : Fragment(), OnItemClickListener {
     }
 
     private fun setupRecyclerView() {
-        adapter = TaskListAdapter(ArrayList(), this)
+        adapter = TaskListAdapter(ArrayList(), requireContext(), this)
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(this.context)
-        recyclerView.addItemDecoration(
-            DividerItemDecoration(
-                activity,
-                DividerItemDecoration.VERTICAL
-            )
-        )
         recyclerView.setHasFixedSize(true)
     }
 

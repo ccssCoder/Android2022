@@ -3,74 +3,113 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="10dp"
+    app:cardCornerRadius="4dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <LinearLayout
+        android:id="@+id/linearLayout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginStart="30dp"
-        android:layout_marginEnd="30dp"
         android:orientation="vertical"
-        android:padding="8dp">
+        android:background="@color/background">
 
-        <LinearLayout
-            android:id="@+id/linearLayout3"
+        <TextView
+            android:id="@+id/taskNameTxtView"
+            android:textColor="@color/heading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"
+            android:textSize="16dp"
+            android:text="Task Name" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            tools:layout_editor_absoluteX="8dp"
-            tools:layout_editor_absoluteY="8dp">
+            android:layout_height="wrap_content"
+            android:padding="4dp">
 
             <TextView
-                android:id="@+id/taskNameTxtView"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="6dp"
-                android:text="Task Name"
-                android:textSize="22dp" />
+                android:text="Created: "
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
+
             <TextView
                 android:id="@+id/assignedDateTxtView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Date"
+                android:textColor="@color/date"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/textView3" />
+
+            <TextView
+                android:id="@+id/statusTxtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@color/theme"
+                android:padding="4dp"
+                android:text="Status"
+                android:textColor="@color/white"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_margin="4dp"
+            android:background="@color/divide_bar" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dp">
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Deadline: "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/deadlineTxtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textColor="@color/date"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/priorityTxtView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_margin="4dp"
-                android:text="Created: "/>
+                android:gravity="right"
+                android:text="Priority: "
+                app:layout_constraintEnd_toStartOf="@+id/priorityImgView"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginTop="10dp"
-                android:background="@android:color/darker_gray" />
+            <ImageView
+                android:id="@+id/priorityImgView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_baseline_circle_24"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:layout_marginTop="10dp"
-                android:layout_margin="4dp">
+        <TextView
+            android:id="@+id/taskDescriptionTxtView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="4dp"/>
 
-                <TextView
-                    android:id="@+id/deadlineTxtView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="4dp"
-                    android:text="Deadline: "/>
-
-                <TextView
-                    android:id="@+id/priorityTxtView"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:layout_margin="4dp"
-                    android:text="Priority: "
-                    />
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
+    </LinearLayout>
 
 </androidx.cardview.widget.CardView>

@@ -10,6 +10,7 @@
 
     <color name="heading">#1A1A1A</color>
     <color name="divide_bar">#333333</color>
+    <color name="background_white">#F0F0F0</color>
     <color name="date">#1A1A1A</color>
     <color name="theme">#2264F4</color>
     <color name="background">#1A2264F4</color>

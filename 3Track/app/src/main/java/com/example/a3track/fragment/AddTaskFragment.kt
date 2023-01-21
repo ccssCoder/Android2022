@@ -59,7 +59,7 @@ class AddTaskFragment : Fragment() {
         emloyeeNameSpinner = view.findViewById(R.id.employeeNameSpinner)
         priorityEditTxt = view.findViewById(R.id.priorityEditTxt)
         descriptionEditTxt = view.findViewById(R.id.descriptionEditTxt)
-        createNewTaskBtn = view.findViewById(R.id.createNewTaskBtn)
+        createNewTaskBtn = requireActivity().findViewById(R.id.createTaskBtn)
 
         createNewTaskBtn.setOnClickListener {
             evaluateForm(view)

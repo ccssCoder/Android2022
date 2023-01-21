@@ -53,6 +53,8 @@
         android:layout_marginStart="50dp"
         android:layout_marginEnd="50dp"
         android:text="Log Out"
+        android:textColor="@color/white"
+        android:backgroundTint="@color/theme_grey"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

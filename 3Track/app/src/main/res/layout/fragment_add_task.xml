@@ -61,14 +61,4 @@
             android:hint="Task Description"/>
     </LinearLayout>
 
-    <Button
-        android:id="@+id/createNewTaskBtn"
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:text="Create Task"
-        app:layout_constraintBottom_toBottomOf="@+id/linearLayout4"
-        tools:layout_editor_absoluteX="50dp" />
-
 </androidx.constraintlayout.widget.ConstraintLayout>

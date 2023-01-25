@@ -1,13 +1,16 @@
 package com.example.a3track.fragment
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
+import androidx.annotation.RequiresApi
 import androidx.fragment.app.activityViewModels
 import com.example.a3track.R
 import com.example.a3track.api.model.TaskResponse
@@ -23,6 +26,8 @@ class TaskDetailFragment : Fragment() {
     lateinit var priorityTxtView: TextView
     lateinit var deadlineTxtView: TextView
 
+    lateinit var priorityImgView: ImageView
+
     companion object {
         private val TAG: String = "XXX"
     }
@@ -33,6 +38,7 @@ class TaskDetailFragment : Fragment() {
         super.onCreate(savedInstanceState)
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -45,6 +51,7 @@ class TaskDetailFragment : Fragment() {
         return view
     }
 
+    @RequiresApi(Build.VERSION_CODES.M)
     @SuppressLint("SetTextI18n")
     private fun init(view: View) {
         taskNameTxtView = view.findViewById(R.id.taskNameTxtView)
@@ -54,6 +61,7 @@ class TaskDetailFragment : Fragment() {
         descriptionTextView = view.findViewById(R.id.descriptionTextView)
         priorityTxtView = view.findViewById(R.id.priorityTxtView)
         deadlineTxtView = view.findViewById(R.id.deadlineTxtView)
+        priorityImgView = view.findViewById(R.id.priorityImgView)
 
         val task: TaskResponse? = sharedViewModel.getTask()
 
@@ -62,9 +70,24 @@ class TaskDetailFragment : Fragment() {
         assignedDateTxtView.text = assignedDateTxtView.text.toString() + task.createdTime.toTimeDateString()
         assigneeTxtView.text = assigneeTxtView.text.toString() + task.assignedToUserID.toString()
 
-        priorityTxtView.text = priorityTxtView.text.toString() + task.priority.toString()
+//        priorityTxtView.text = priorityTxtView.text.toString() + task.priority.toString()
         deadlineTxtView.text = deadlineTxtView.text.toString() + task.deadline.toTimeDateString()
         descriptionTextView.text = task.description
+
+        when (task.priority) {
+            0 -> {
+                priorityTxtView.text = "High priority"
+                context?.let { priorityImgView.setColorFilter(it.getColor(R.color.priority_red)) }
+            }
+            1 -> {
+                priorityTxtView.text = "Medium priority"
+                context?.let { priorityImgView.setColorFilter(it.getColor(R.color.priority_yellow)) }
+            }
+            2 -> {
+                priorityTxtView.text = "Low priority"
+                context?.let { priorityImgView.setColorFilter(it.getColor(R.color.priority_green)) }
+            }
+        }
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

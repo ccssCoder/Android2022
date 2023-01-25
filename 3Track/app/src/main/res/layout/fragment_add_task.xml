@@ -21,42 +21,70 @@
             android:id="@+id/departmentNameSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:text="Select Project"/>
 
-        <EditText
-            android:id="@+id/taskNameEditTxt"
-            android:layout_width="match_parent"
+        <LinearLayout
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="Enter Task Name"/>
+            android:layout_margin="5dp"
+            android:orientation="vertical">
+
+            <EditText
+                android:id="@+id/taskNameEditTxt"
+                android:layout_width="match_parent"
+                android:background="@color/white"
+                android:layout_height="48dp"
+                android:hint="Enter Task Name"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="2dp"
+                android:background="@color/theme" />
+        </LinearLayout>
 
         <Spinner
             android:id="@+id/employeeNameSpinner"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:layout_margin="5dp"
             android:hint="Select Assignee"/>
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="5dp"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/priorityEditTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="left"
-                android:hint="Select Priority"/>
+                android:layout_height="48dp"
+                android:hint="Select Priority"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
 
-            <EditText
+            <Button
+                android:id="@+id/deadlineEditTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:hint="Deadline"/>
-        </LinearLayout>
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/calendar"
+                android:drawablePadding="5dp"
+                android:hint="Deadline"
+                android:padding="5dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
         <EditText
             android:id="@+id/descriptionEditTxt"
             android:layout_width="match_parent"
+            android:background="@color/white"
             android:layout_height="200dp"
+            android:layout_margin="5dp"
             android:layout_marginBottom="100dp"
             android:hint="Task Description"/>
     </LinearLayout>

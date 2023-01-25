@@ -2,19 +2,20 @@ package com.example.a3track.fragment
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.a3track.R
 import com.example.a3track.api.ThreeTrackerRepository
 import com.example.a3track.api.model.CreateTaskRequest
+import com.example.a3track.utils.*
 import com.example.a3track.viewmodel.AddTaskViewModel
 import com.example.a3track.viewmodel.AddTaskViewModelFactory
+import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.snackbar.Snackbar
-import com.google.gson.annotations.SerializedName
 import kotlin.properties.Delegates
 
 class AddTaskFragment : Fragment() {
@@ -22,10 +23,12 @@ class AddTaskFragment : Fragment() {
 
     private lateinit var departmentNameSpinner: Spinner
     private lateinit var taskNameEditTxt: EditText
-    private lateinit var emloyeeNameSpinner: Spinner
+    private lateinit var employeeNameSpinner: Spinner
     private lateinit var priorityEditTxt: EditText
     private lateinit var descriptionEditTxt: EditText
     private lateinit var createNewTaskBtn: Button
+    private lateinit var deadlineEditTxt: Button
+    private lateinit var materialDatePicker: MaterialDatePicker<Long>
 
     private lateinit var arrayAdapter1: ArrayAdapter<String>
     private lateinit var arrayAdapter2: ArrayAdapter<String>
@@ -56,10 +59,13 @@ class AddTaskFragment : Fragment() {
     private fun init(view: View) {
         departmentNameSpinner = view.findViewById(R.id.departmentNameSpinner)
         taskNameEditTxt = view.findViewById(R.id.taskNameEditTxt)
-        emloyeeNameSpinner = view.findViewById(R.id.employeeNameSpinner)
+        employeeNameSpinner = view.findViewById(R.id.employeeNameSpinner)
         priorityEditTxt = view.findViewById(R.id.priorityEditTxt)
         descriptionEditTxt = view.findViewById(R.id.descriptionEditTxt)
         createNewTaskBtn = requireActivity().findViewById(R.id.createTaskBtn)
+        deadlineEditTxt = view.findViewById(R.id.deadlineEditTxt)
+
+        setUpDatePicker()
 
         createNewTaskBtn.setOnClickListener {
             evaluateForm(view)
@@ -74,6 +80,20 @@ class AddTaskFragment : Fragment() {
         }
     }
 
+    private fun setUpDatePicker() {
+        materialDatePicker = MaterialDatePicker.Builder.datePicker()
+            .setTitleText("Select Date")
+            .build()
+
+        deadlineEditTxt.setOnClickListener {
+            materialDatePicker.show(childFragmentManager, "MATERIAL_DATE_PICKER")
+        }
+
+        materialDatePicker.addOnPositiveButtonClickListener {
+            deadlineEditTxt.text = it.toTimeDateString()
+        }
+    }
+
     private fun evaluateForm(view: View) {
         try {
             val l = CreateTaskRequest(
@@ -81,7 +101,7 @@ class AddTaskFragment : Fragment() {
                 descriptionEditTxt.text.toString()!!,
                 selectedIdOnSpinner2!!,
                 priorityEditTxt.text.toString().toInt()!!,
-                null,
+                deadlineEditTxt.text.toString().toTimeDateLong()!!,
                 selectedIdOnSpinner1!!,
                 null
             )
@@ -135,8 +155,8 @@ class AddTaskFragment : Fragment() {
             list
         )
 
-        emloyeeNameSpinner.adapter = arrayAdapter2
-        emloyeeNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+        employeeNameSpinner.adapter = arrayAdapter2
+        employeeNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
                 val depResponse = addTaskViewModel.members.value?.find { it.firstName + " " + it.lastName == list[p2] }
 

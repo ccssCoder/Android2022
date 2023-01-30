@@ -11,7 +11,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.a3track.R
 import com.example.a3track.api.ThreeTrackerRepository
 import com.example.a3track.api.model.CreateTaskRequest
-import com.example.a3track.utils.*
+import com.example.a3track.api.model.DepartmentResponse
+import com.example.a3track.api.model.UserResponse
+import com.example.a3track.utils.toTimeDateLong
+import com.example.a3track.utils.toTimeDateString
 import com.example.a3track.viewmodel.AddTaskViewModel
 import com.example.a3track.viewmodel.AddTaskViewModelFactory
 import com.google.android.material.datepicker.MaterialDatePicker
@@ -21,22 +24,24 @@ import kotlin.properties.Delegates
 class AddTaskFragment : Fragment() {
     private lateinit var addTaskViewModel: AddTaskViewModel
 
-    private lateinit var departmentNameSpinner: Spinner
     private lateinit var taskNameEditTxt: EditText
-    private lateinit var employeeNameSpinner: Spinner
-    private lateinit var priorityEditTxt: EditText
     private lateinit var descriptionEditTxt: EditText
     private lateinit var createNewTaskBtn: Button
-    private lateinit var deadlineEditTxt: Button
+
+    private lateinit var deadlineEditTxt: EditText
     private lateinit var materialDatePicker: MaterialDatePicker<Long>
 
-    private lateinit var arrayAdapter1: ArrayAdapter<String>
-    private lateinit var arrayAdapter2: ArrayAdapter<String>
+    private lateinit var dropDownAdapter1: ArrayAdapter<DepartmentResponse>
+    private lateinit var dropDownDepartmentTxt: AutoCompleteTextView
+    private var selectedDepartmentId by Delegates.notNull<Int>()
 
-    // id for selected department
-    private var selectedIdOnSpinner1 by Delegates.notNull<Int>()
-    // id for selected member
-    private var selectedIdOnSpinner2 by Delegates.notNull<Int>()
+    private lateinit var dropDownAdapter2: ArrayAdapter<UserResponse>
+    private lateinit var dropDownEmployeeNameTxt: AutoCompleteTextView
+    private var selectedAssigneeId by Delegates.notNull<Int>()
+
+    private lateinit var dropDownPriorityTxt: AutoCompleteTextView
+    private lateinit var dropDownAdapter3: ArrayAdapter<String>
+    private var selectedPriority by Delegates.notNull<Int>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -57,26 +62,27 @@ class AddTaskFragment : Fragment() {
     }
 
     private fun init(view: View) {
-        departmentNameSpinner = view.findViewById(R.id.departmentNameSpinner)
         taskNameEditTxt = view.findViewById(R.id.taskNameEditTxt)
-        employeeNameSpinner = view.findViewById(R.id.employeeNameSpinner)
-        priorityEditTxt = view.findViewById(R.id.priorityEditTxt)
+        dropDownPriorityTxt = view.findViewById(R.id.dropDownPriorityTxt)
         descriptionEditTxt = view.findViewById(R.id.descriptionEditTxt)
         createNewTaskBtn = requireActivity().findViewById(R.id.createTaskBtn)
         deadlineEditTxt = view.findViewById(R.id.deadlineEditTxt)
-
+        dropDownDepartmentTxt = view.findViewById(R.id.dropDownDepartmentTxt)
+        dropDownEmployeeNameTxt = view.findViewById(R.id.dropDownEmployeeNameTxt)
         setUpDatePicker()
 
-        createNewTaskBtn.setOnClickListener {
-            evaluateForm(view)
-        }
-
         addTaskViewModel.departments.observe(viewLifecycleOwner) {
-            setUpSpinnerForChoosingDepartment()
+            setUpDropDownMenuDepartment()
         }
 
         addTaskViewModel.members.observe(viewLifecycleOwner) {
-            setUpSpinnerForChoosingEmployee()
+            setUpDropDownMenuAssignee()
+        }
+
+        setUpDropDownMenuPriority()
+
+        createNewTaskBtn.setOnClickListener {
+            evaluateForm(view)
         }
     }
 
@@ -90,7 +96,7 @@ class AddTaskFragment : Fragment() {
         }
 
         materialDatePicker.addOnPositiveButtonClickListener {
-            deadlineEditTxt.text = it.toTimeDateString()
+            deadlineEditTxt.setText(it.toTimeDateString())
         }
     }
 
@@ -99,11 +105,11 @@ class AddTaskFragment : Fragment() {
             val l = CreateTaskRequest(
                 taskNameEditTxt.text.toString()!!,
                 descriptionEditTxt.text.toString()!!,
-                selectedIdOnSpinner2!!,
-                priorityEditTxt.text.toString().toInt()!!,
+                selectedAssigneeId!!,
+                selectedPriority,
                 deadlineEditTxt.text.toString().toTimeDateLong()!!,
-                selectedIdOnSpinner1!!,
-                null
+                selectedDepartmentId!!,
+                0
             )
             addTaskViewModel.createTask(l)
 
@@ -121,54 +127,47 @@ class AddTaskFragment : Fragment() {
         }
     }
 
-    private fun setUpSpinnerForChoosingDepartment(){
-        val list = ArrayList<String>(addTaskViewModel.departments.value?.map { it -> it.name })
-        arrayAdapter1 = ArrayAdapter<String>(
-            requireActivity(),
-            android.R.layout.simple_spinner_dropdown_item,
-            list
+    private fun setUpDropDownMenuDepartment() {
+        dropDownAdapter1 = ArrayAdapter(
+            requireContext(),
+            R.layout.dropdown_item,
+            ArrayList<DepartmentResponse>(addTaskViewModel.departments.value)
         )
+        dropDownDepartmentTxt.setAdapter(dropDownAdapter1)
 
-        departmentNameSpinner.adapter = arrayAdapter1
-        departmentNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val depResponse = addTaskViewModel.departments.value?.find { it.name == list[p2] }
-
-
-                if (depResponse != null) {
-                    selectedIdOnSpinner1 = depResponse.departmentID
-                }
-                Log.d("TAG", "Spinner selected department $depResponse (selected id $selectedIdOnSpinner1)")
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
-            }
+        dropDownDepartmentTxt.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+            val item: DepartmentResponse = parent.getItemAtPosition(position) as DepartmentResponse
+            selectedDepartmentId = item.departmentID
         }
     }
 
-    private fun setUpSpinnerForChoosingEmployee(){
-        val list = ArrayList<String>(addTaskViewModel.members.value?.map { it -> it.firstName + " " + it.lastName })
-        arrayAdapter2 = ArrayAdapter<String>(
-            requireActivity(),
-            android.R.layout.simple_spinner_dropdown_item,
-            list
+    private fun setUpDropDownMenuAssignee() {
+        dropDownAdapter2 = ArrayAdapter(
+            requireContext(),
+            R.layout.dropdown_item,
+            ArrayList<UserResponse>(addTaskViewModel.members.value).sortedBy { it.lastName }
         )
+        dropDownEmployeeNameTxt.setAdapter(dropDownAdapter2)
 
-        employeeNameSpinner.adapter = arrayAdapter2
-        employeeNameSpinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
-            override fun onItemSelected(p0: AdapterView<*>?, p1: View?, p2: Int, p3: Long) {
-                val depResponse = addTaskViewModel.members.value?.find { it.firstName + " " + it.lastName == list[p2] }
+        dropDownEmployeeNameTxt.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+            val item: UserResponse = parent.getItemAtPosition(position) as UserResponse
+            selectedAssigneeId = item.id
+        }
+    }
 
+    private fun setUpDropDownMenuPriority() {
+        dropDownAdapter3 = ArrayAdapter(
+            requireContext(),
+            R.layout.dropdown_item,
+            arrayOf("High", "Medium", "Low")
+        )
+        dropDownPriorityTxt.setAdapter(dropDownAdapter3)
 
-                if (depResponse != null) {
-                    selectedIdOnSpinner2 = depResponse.id
-                }
-                Log.d("TAG", "Spinner selected member $depResponse (selected id $selectedIdOnSpinner2)")
-            }
-
-            override fun onNothingSelected(p0: AdapterView<*>?) {
-                TODO("Not yet implemented")
+        dropDownPriorityTxt.onItemClickListener = AdapterView.OnItemClickListener { parent, _, position, _ ->
+            when (parent.getItemAtPosition(position) as String) {
+                "High" -> { selectedPriority = 0 }
+                "Medium" -> { selectedPriority = 1 }
+                "Low" -> { selectedPriority = 2 }
             }
         }
     }

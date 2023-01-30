@@ -5,6 +5,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".MainActivity">
+    
+<!--    https://stackoverflow.com/questions/53476115/error-illegalargumentexception-the-style-on-this-component-requires-your-app-->
+<!--    android:theme="@style/Theme.MaterialComponents.Light"-->
 
     <fragment
         android:id="@+id/nav_host_fragment"

@@ -4,51 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:theme="@style/Theme.MaterialComponents.Light"
     android:background="@color/background_white"
     tools:context=".fragment.AddTaskFragment">
 
+<!--    https://stackoverflow.com/questions/53476115/error-illegalargumentexception-the-style-on-this-component-requires-your-app-->
+<!--    android:theme="@style/Theme.MaterialComponents.Light"-->
+
     <LinearLayout
         android:id="@+id/linearLayout4"
-        android:layout_marginBottom="50dp"
-        android:layout_marginTop="60dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginTop="30dp"
         android:layout_marginLeft="40dp"
         android:layout_marginRight="40dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <Spinner
-            android:id="@+id/departmentNameSpinner"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:text="Select Project"/>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:orientation="vertical">
+            android:layout_margin="5dp">
 
-            <EditText
+            <AutoCompleteTextView
+                android:id="@+id/dropDownDepartmentTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:hint="Select Project"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/taskNameEditTxt"
                 android:layout_width="match_parent"
-                android:background="@color/white"
-                android:layout_height="48dp"
-                android:hint="Enter Task Name"/>
+                android:layout_height="wrap_content"
+                android:hint="Task Name"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="2dp"
-                android:background="@color/theme" />
-        </LinearLayout>
+        </com.google.android.material.textfield.TextInputLayout>
 
-        <Spinner
-            android:id="@+id/employeeNameSpinner"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_margin="5dp"
-            android:hint="Select Assignee"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/dropDownEmployeeNameTxt"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:enabled="false"
+                android:hint="Select Assignee"/>
+        </com.google.android.material.textfield.TextInputLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -56,37 +71,59 @@
             android:layout_margin="5dp"
             android:orientation="horizontal">
 
-            <EditText
-                android:id="@+id/priorityEditTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:hint="Select Priority"
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
 
-            <Button
-                android:id="@+id/deadlineEditTxt"
-                android:layout_width="wrap_content"
-                android:layout_height="48dp"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/calendar"
-                android:drawablePadding="5dp"
-                android:hint="Deadline"
-                android:padding="5dp"
+                <AutoCompleteTextView
+                    android:id="@+id/dropDownPriorityTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:enabled="false"
+                    android:hint="Priority" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="140dp"
+                android:layout_height="match_parent"
+                android:gravity="right"
+                app:startIconDrawable="@drawable/calendar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/deadlineEditTxt"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Deadline"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+            </com.google.android.material.textfield.TextInputLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <EditText
-            android:id="@+id/descriptionEditTxt"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
             android:layout_width="match_parent"
-            android:background="@color/white"
-            android:layout_height="200dp"
-            android:layout_margin="5dp"
-            android:layout_marginBottom="100dp"
-            android:hint="Task Description"/>
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp">
+
+            <AutoCompleteTextView
+                android:id="@+id/descriptionEditTxt"
+                android:layout_width="match_parent"
+                android:layout_height="175dp"
+                android:layout_marginBottom="100dp"
+                android:hint="Task Description"/>
+        </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

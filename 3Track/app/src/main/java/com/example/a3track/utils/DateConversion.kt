@@ -16,6 +16,6 @@ fun Long.toTimeDateString(): String {
 Convert Time & Date String to Long:
  */
 fun String.toTimeDateLong(): Long {
-    val format = SimpleDateFormat("dd MM yyyy", Locale.US)
+    val format = SimpleDateFormat("dd MMMM yyyy", Locale.US)
     return format.parse(this)?.time ?: throw IllegalArgumentException("Invalid time string")
 }

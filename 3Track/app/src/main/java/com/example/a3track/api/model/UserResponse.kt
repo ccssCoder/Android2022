@@ -21,4 +21,8 @@ data class UserResponse(
     var departmentId: String,
     @SerializedName("image")
     var profilePictureURL: String?,
-)
+){
+    override fun toString(): String {
+        return "$lastName $firstName"
+    }
+}

@@ -9,6 +9,7 @@ import android.widget.ExpandableListView
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.a3track.R
 import com.example.a3track.adapter.GroupExpandableListAdapter
 import com.example.a3track.api.ThreeTrackerRepository
@@ -16,6 +17,7 @@ import com.example.a3track.api.model.DepartmentResponse
 import com.example.a3track.viewmodel.GroupsViewModel
 import com.example.a3track.viewmodel.GroupsViewModelFactory
 import com.example.a3track.viewmodel.SharedViewModel
+import com.google.android.material.snackbar.Snackbar
 
 class GroupsFragment : Fragment() {
     private val sharedViewModel: SharedViewModel by activityViewModels()
@@ -58,10 +60,27 @@ class GroupsFragment : Fragment() {
         eListView.setAdapter(listViewAdapter)
         eListView.divider = null
 
-        eListView.setOnChildClickListener { _, _, i, _, _ ->
+        eListView.setOnChildClickListener { _, _, i, j, _ ->
             try{
-                sharedViewModel.setDepartment(groupsViewModel.departments.value?.get(i))
-                // navigate to members page
+                if (j == 0) {
+                    val tmp = groupsViewModel.departments.value?.get(i)
+                    sharedViewModel.setDepartment(tmp)
+                    groupsViewModel.members.value?.let { member ->
+                        if (tmp != null) {
+                            sharedViewModel.setMembers(
+                                member.filter { it.departmentId == tmp.departmentID.toString() }
+                            )
+                        }
+                    }
+                    findNavController().navigate(R.id.action_groupsFragment_to_membersFragment)
+                }
+                if (j == 1) {
+                    Snackbar.make(
+                        view,
+                        "Backend call doesn't exist...",
+                        800,
+                    ).show()
+                }
                 true
             } catch (e: Exception) {
                 false

@@ -1,8 +1,10 @@
 package com.example.a3track.viewmodel
 
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.example.a3track.api.model.DepartmentResponse
 import com.example.a3track.api.model.TaskResponse
+import com.example.a3track.api.model.UserResponse
 
 class SharedViewModel : ViewModel() {
     // Task -> TaskDetail
@@ -18,6 +20,7 @@ class SharedViewModel : ViewModel() {
 
     // Group -> Members
     private var department: DepartmentResponse? = null
+    private var members: List<UserResponse>? = null
 
     fun setDepartment(department: DepartmentResponse?) {
         this.department = department
@@ -25,5 +28,13 @@ class SharedViewModel : ViewModel() {
 
     fun getDepartment(): DepartmentResponse? {
         return department
+    }
+
+    fun setMembers(members: List<UserResponse>) {
+        this.members = members
+    }
+
+    fun getMembers(): List<UserResponse>? {
+        return members
     }
 }

@@ -35,7 +35,11 @@
         android:id="@+id/groupsFragment"
         android:name="com.example.a3track.fragment.GroupsFragment"
         android:label="My Groups"
-        tools:layout="@layout/fragment_groups" />
+        tools:layout="@layout/fragment_groups" >
+        <action
+            android:id="@+id/action_groupsFragment_to_membersFragment"
+            app:destination="@id/membersFragment" />
+    </fragment>
     <fragment
         android:id="@+id/settingsFragment"
         android:name="com.example.a3track.fragment.SettingsFragment"
@@ -55,4 +59,9 @@
         android:name="com.example.a3track.fragment.AddTaskFragment"
         android:label="Create new task"
         tools:layout="@layout/fragment_add_task" />
+    <fragment
+        android:id="@+id/membersFragment"
+        android:name="com.example.a3track.fragment.MembersFragment"
+        android:label="Group members"
+        tools:layout="@layout/fragment_members" />
 </navigation>
